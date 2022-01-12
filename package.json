@@ -1,0 +1,35 @@
+{
+  "name": "github-gist",
+  "version": "1.0.0",
+  "description": "github public gist viewing api",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "set NODE_ENV=development&& nodemon server.js",
+    "start": "set NODE_ENV=production&& node server.js"
+  },
+  "keywords": [
+    "github",
+    "gist",
+    "api",
+    "nodejs"
+  ],
+  "author": "Vinit Khandelwal",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "express-rate-limit": "^6.0.5",
+    "helmet": "^5.0.1",
+    "hpp": "^0.2.3",
+    "joi": "^17.5.0",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.5",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
