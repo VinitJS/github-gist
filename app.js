@@ -7,6 +7,18 @@ const helmet = require('helmet');
 
 const gistRoutes = require('./routes/gistRoutes');
 const ErrorResponse = require('./utils/errorResponse');
+const { db } = require('./utils/database');
+const asyncHandler = require('./midlewares/asyncHandler');
+const errorHander = require('./midlewares/error');
+
+db.authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+    db.sync();
+  })
+  .catch((err) => {
+    console.error("Unable to connect to the database:", err);
+  });
 
 const app = express();
 
@@ -39,10 +51,12 @@ app.use(limiter);
 app.use('/api/v1/gist', gistRoutes);
 
 // handle undefined Routes
-app.use('*', (req, res, next) => {
-  const err = new ErrorResponse(404, 'Not found!');
-  next(err, req, res, next);
-});
+app.use(asyncHandler(async (req, res, next) => {
+	return next(new ErrorResponse("Not found.", 404));
+}));
+
+// error middleware
+app.use(errorHander);
 
 // Express automatically knows that this entire function is an error handling middleware by specifying 4 parameters
 app.use((err, req, res, next) => {

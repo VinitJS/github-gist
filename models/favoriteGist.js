@@ -1,17 +1,14 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Sequelize, DataTypes } = require('sequelize');
+const { db } = require('../utils/database');
 
-class FavoriteGist extends Model {}
-User.init({
-  username: DataTypes.STRING,
-  birthday: DataTypes.DATE
-}, { sequelize, modelName: 'user' });
-
-(async () => {
-  await sequelize.sync();
-  const jane = await User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20)
-  });
-  console.log(jane.toJSON());
-})();
+module.exports = db.define('favoriteGists', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  gistId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+});

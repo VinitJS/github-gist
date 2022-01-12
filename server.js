@@ -11,24 +11,10 @@ process.on('uncaughtException', err => {
 });
 
 const app = require('./app');
-// DB Connection
-const sequelize = new Sequelize(config.DB_NAME, config.DB_NAME, config.DB_PASS, {
-  host: config.DB_HOST,
-  dialect: config.DB
-});
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
 
 // Start the server
 const port = config.PORT;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Application is running on port ${port}`);
 });
 
