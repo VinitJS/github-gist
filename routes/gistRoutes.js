@@ -9,8 +9,8 @@ const { favoriteByGistId, unfavoriteByGistId } = require('../controllers/favorit
 
 router.get('/user/:username', joiValidator(getGistsByUsernameParams, validateBy.PARAMS), getGistsByUsername);
 router.get('/id/:gistId', joiValidator(getGistByIdParams, validateBy.PARAMS), getGistById);
-router.put('/favorite/:gistId', joiValidator(favoriteByGistIdParams, validateBy.PARAMS), favoriteByGistId);
-router.put('/unfavorite/:gistId', joiValidator(unfavoriteByGistIdParams, validateBy.PARAMS), unfavoriteByGistId);
+router.put('/favorite/do/:gistId', joiValidator(favoriteByGistIdParams, validateBy.PARAMS), favoriteByGistId);
+router.put('/favorite/undo/:gistId', joiValidator(unfavoriteByGistIdParams, validateBy.PARAMS), unfavoriteByGistId);
 router.get('/favorite', getGistsByFavorites);
 
 module.exports = router;

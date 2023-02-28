@@ -12,8 +12,6 @@ exports.favoriteByGistId = asyncHandler(async (req, res, next) => {
 
 exports.unfavoriteByGistId = asyncHandler(async (req, res, next) => {
   const { gistId } = req.params;
-
   await unfavoriteByGistId(gistId);
-
 	res.status(200).json({ success: true, data: { }, error: null });
 });

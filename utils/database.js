@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
-const config = require('../env/config');
 
 // DB Connection
-exports.db = new Sequelize(config.DB_NAME, config.DB_NAME, config.DB_PASS, {
-  host: config.DB_HOST,
-  dialect: config.DB
+exports.db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT
 });

@@ -10,15 +10,12 @@ exports.getGistsByUsername = asyncHandler(async (req, res, next) => {
 
 exports.getGistById = asyncHandler(async (req, res, next) => {
 	const { gistId } = req.params;
-	console.log(gistId)
 	const gist = await getGistById(gistId);
 	res.status(200).json({ success: true, data: { gistId, gist }, error: null });
 });
 
 exports.getGistsByFavorites = asyncHandler(async (req, res, next) => {
 	const favorites = await findFavoriteGistIds();
-
-	const favoriteGists = await getGistByIds(favorites.map(fav => fav.gistId));
-
+	const favoriteGists = await getGistByIds(favorites.map(fav => fav.gist_id));
 	res.status(200).json({ success: true, data: { favoriteGists }, error: null });
 });
