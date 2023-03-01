@@ -8,7 +8,7 @@ describe('Favorite Gists', () => {
         app = await main
     });
 
-    test("Get Gists By Id", async () => {
+    test("Get Gists By Id - success", async () => {
         const basePath = "/api/v1/gist";
         const id = "391a44f57e57c603ca101363da817637";
         const restPath = `/id/${id}`;
@@ -108,7 +108,23 @@ describe('Favorite Gists', () => {
         });
     });
 
-    test("Get Gists B User", async () => {
+    test("Get Gists By Id - incorrect gistId", async () => {
+        const basePath = "/api/v1/gist";
+        const id = "391a44f57e57c603ca101363da817630";
+        const restPath = `/id/${id}`;
+        await supertest(app).get(basePath + restPath)
+            .expect(500)
+            .then((response) => {
+                result = JSON.parse(response.text)
+                expect(result).toEqual({
+                    success: false,
+                    data: null,
+                    error: 'Request failed with status code 404'
+                });
+        });
+    });
+
+    test("Get Gists By User", async () => {
         const basePath = "/api/v1/gist";
         const user = "abc";
         const restPath = `/user/${user}`;
@@ -219,6 +235,22 @@ describe('Favorite Gists', () => {
                   },
                   "error": null
               })
+        });
+    });
+
+    test("Get Gists By User - incorrect user", async () => {
+        const basePath = "/api/v1/gist";
+        const user = "sdvkjn";
+        const restPath = `/user/${user}`;
+        await supertest(app).get(basePath + restPath)
+            .expect(500)
+            .then((response) => {
+                result = JSON.parse(response.text);
+                expect(result).toEqual({
+                    success: false,
+                    data: null,
+                    error: 'Request failed with status code 404'
+                });
         });
     });
 });
